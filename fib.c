@@ -10,7 +10,9 @@ int read_file_int(const char *filename)
       return -1;
    }
 
-   char fileNumberString[20]; // Char size 20 should be large enough for integers used in this program, and can be increased if need be
+   // Char size 20 should be large enough for integers used
+   // in this program, and can be increased if need be.
+   char fileNumberString[20];
    if (fgets(fileNumberString, sizeof(fileNumberString), openedFile) != NULL)
    {
       int fileNumberInt = atoi(fileNumberString);
