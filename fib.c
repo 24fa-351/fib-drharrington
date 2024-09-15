@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-int read_file_int(const char *filename)
+uint64_t read_file_int(const char *filename)
 {
    FILE *openedFile = fopen(filename, "r");
    if (openedFile == NULL)
@@ -15,7 +16,7 @@ int read_file_int(const char *filename)
    char fileNumberString[20];
    if (fgets(fileNumberString, sizeof(fileNumberString), openedFile) != NULL)
    {
-      int fileNumberInt = atoi(fileNumberString);
+      uint64_t fileNumberInt = atoi(fileNumberString);
       fclose(openedFile);
       return fileNumberInt;
    }
@@ -27,7 +28,7 @@ int read_file_int(const char *filename)
    }
 }
 
-int fibonacci_recursive(int n)
+uint64_t fibonacci_recursive(uint64_t n)
 {
    if (n == 0)
    {
@@ -40,7 +41,7 @@ int fibonacci_recursive(int n)
    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2);
 }
 
-int fibonacci_iterative(int n)
+uint64_t fibonacci_iterative(uint64_t n)
 {
    if (n == 0)
    {
@@ -50,8 +51,8 @@ int fibonacci_iterative(int n)
    {
       return 1;
    }
-   int first = 0, second = 1, fibonacci = 1;
-   for (int i = 2; i <= n; i++)
+   uint64_t first = 0, second = 1, fibonacci = 1;
+   for (uint64_t i = 2; i <= n; i++)
    {
       fibonacci = first + second;
       first = second;
@@ -60,9 +61,9 @@ int fibonacci_iterative(int n)
    return fibonacci;
 }
 
-int main(int argc, char *argv[])
+uint64_t main(int argc, char *argv[])
 {
-   int startingNumber = atoi(argv[1]);
+   uint64_t startingNumber = atoi(argv[1]);
    if (startingNumber < 0)
    {
       printf("The Fibonacci number must be a positive integer.\n");
@@ -76,17 +77,17 @@ int main(int argc, char *argv[])
       return 1;
    }
 
-   int fileNumber = read_file_int(argv[3]);
+   uint64_t fileNumber = read_file_int(argv[3]);
    if (fileNumber == -1)
    {
       printf("Unable to read integer from the file.\n");
       return 1;
    }
 
-   int fibonacciResult = 0;
+   uint64_t fibonacciResult = 0;
    // We subtract 1 to return the fibonacci number at the correct position.
-   int fibonacciNumberPosition = startingNumber + fileNumber - 1;
-   if (fibonacciMethod == 'i')
+   uint64_t fibonacciNumberPosition = startingNumber + fileNumber - 1;
+   if (fibonacciMethod == 'r')
    {
       fibonacciResult = fibonacci_recursive(fibonacciNumberPosition);
    }
@@ -95,7 +96,7 @@ int main(int argc, char *argv[])
       fibonacciResult = fibonacci_iterative(fibonacciNumberPosition);
    }
 
-   printf("%d", fibonacciResult);
+   printf("%lu", fibonacciResult);
 
    return 0;
 }
